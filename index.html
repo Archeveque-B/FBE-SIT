@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>FBE - Site Complet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg-color, black);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "FBE FBE FBE FBE FBE FBE FBE FBE";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: rgba(255, 255, 255, 0.05);
+      font-size: 60px;
+      writing-mode: vertical-rl;
+      white-space: pre;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 24px;
+      margin-bottom: 40px;
+    }
+
+    .slogan {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 1;
+    }
+
+    button {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 15px 30px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: white;
+      color: black;
+    }
+
+    #loading {
+      font-size: 22px;
+      color: goldenrod;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .copyright {
+      position: absolute;
+      bottom: 10px;
+      font-size: 14px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .visible {
+      display: block;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .gallery img {
+      width: 100px;
+      margin: 5px;
+      border-radius: 8px;
+    }
+
+    video {
+      width: 90%;
+      max-width: 500px;
+      margin: 20px auto;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="intro" class="visible">
+    <h1>FBE</h1>
+    <div class="subtitle">Formation<br>Bureau<br>Études</div>
+    <div class="copyright">© 2025 Tous droits réservés</div>
+  </div>
+
+  <div id="main" class="page">
+    <h1>Bienvenue chez FBE</h1>
+    <p class="slogan">Satisfait ou remboursé</p>
+    <div class="menu">
+      <button onclick="afficherPage('formation')">Formation</button>
+      <button onclick="afficherPage('services')">Services</button>
+      <button onclick="afficherPage('apropos')">À propos</button>
+      <button onclick="afficherPage('contact')">Contact</button>
+    </div>
+    <div id="loading">Chargement...</div>
+  </div>
+
+  <!-- Page Formation -->
+  <div id="formation" class="page">
+    <h1>Formation</h1>
+    <p>Bienvenue dans la section Formation de FBE.</p>
+    <video controls>
+      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+      Votre navigateur ne supporte pas la vidéo.
+    </video>
+    <p>Regardez nos tutoriels pour améliorer vos compétences.</p>
+    <button onclick="retourAccueil()">Retour</button>
+  </div>
+
+  <!-- Page Services -->
+  <div id="services" class="page">
+    <h1>Nos Services</h1>
+    <p>Nous proposons plusieurs types de services adaptés à vos besoins :</p>
+    <div class="gallery">
+      <img src="https://via.placeholder.com/100" alt="service1" />
+      <img src="https://via.placeholder.com/100" alt="service2" />
+      <img src="https://via.placeholder.com/100" alt="service3" />
+    </div>
+    <button onclick="retourAccueil()">Retour</button>
+  </div>
+
+  <!-- Page À propos -->
+  <div id="apropos" class="page">
+    <h1>À propos de FBE</h1>
+    <p>FBE est une entreprise innovante en formation et études techniques.</p>
+    <p>Notre mission est de vous offrir un apprentissage de qualité et des services sur mesure.</p>
+    <button onclick="retourAccueil()">Retour</button>
+  </div>
+
+  <!-- Page Contact avec Formulaire -->
+  <div id="contact" class="page">
+    <h1>Contact</h1>
+    <p>Laissez-nous un message :</p>
+    <form action="https://formspree.io/f/xyzabc" method="POST">
+      <input type="text" name="name" placeholder="Votre nom" required />
+      <input type="email" name="email" placeholder="Votre email" required />
+      <textarea name="message" rows="4" placeholder="Votre message" required></textarea>
+      <button type="submit">Envoyer</button>
+    </form>
+    <button onclick="retourAccueil()">Retour</button>
+  </div>
+
+  <script>
+    // Transition intro vers menu
+    setTimeout(() => {
+      document.getElementById("intro").classList.remove("visible");
+      document.getElementById("intro").classList.add("page");
+      document.getElementById("main").classList.remove("page");
+      document.getElementById("main").classList.add("visible");
+    }, 4000);
+
+    function afficherPage(pageId) {
+      document.getElementById("loading").style.display = "block";
+      setTimeout(() => {
+        const pages = document.querySelectorAll(".page, .visible");
+        pages.forEach(p => p.classList.remove("visible"));
+        pages.forEach(p => p.classList.add("page"));
+        document.getElementById(pageId).classList.remove("page");
+        document.getElementById(pageId).classList.add("visible");
+        document.getElementById("loading").style.display = "none";
+      }, 2000);
+    }
+
+    function retourAccueil() {
+      const pages = document.querySelectorAll(".page, .visible");
+      pages.forEach(p => p.classList.remove("visible"));
+      pages.forEach(p => p.classList.add("page"));
+      document.getElementById("main").classList.remove("page");
+      document.getElementById("main").classList.add("visible");
+    }
+  </script>
+</body>
+</html>
